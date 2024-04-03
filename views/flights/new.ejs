@@ -1,0 +1,74 @@
+<%- include('../partials/header') %>
+
+<h2>Enter a New Flight</h2>
+<form action="/flights" method="POST">
+  <label>Airline:
+    <select name="airline">
+      <option value="Hawaiian">Hawaiian</option>
+      <option value="Southwest">Southwest</option>
+      <option value="United">United</option>
+      <option value="Alliance">Alliance</option>
+    </select>
+  </label><br>
+  <label>Airport:
+    <select name="airport"> 
+      <option value="JFK">JFK</option>
+      <option value="LAX">LAX</option>
+      <option value="ORD">ORD</option>
+      <option value="SEA">SEA</option>
+    </select>
+  </label>
+  <br>
+  <label>Flight Number:
+    <input type="number" name="flightNo" value="1234">
+  </label><br>
+  <label>Departure Date:
+    <input type="date" name="departs">
+  </label><br>
+
+  <h2>Add Destinations</h2>
+  <div id="destinations">
+    <div class="destination">
+      <label>Airport:
+        <select name="destinations[0][airport]"> 
+          <option value="JFK">JFK</option>
+          <option value="LAX">LAX</option>
+          <option value="ORD">ORD</option>
+          <option value="SEA">SEA</option>
+        </select>
+      </label><br>
+      <label>Arrival Date:
+        <input type="date" name="destinations[0][arrival]">
+      </label><br>
+    </div>
+  </div>
+
+  <button type="button" onclick="addDestination()">Add Destination</button> 
+  
+  <button type="submit">Add Flight</button>
+</form>
+<p><%= errorMsg %></p>
+
+<%- include('../partials/footer') %>
+
+<script>
+  function addDestination() {
+    const destinationCount = document.querySelectorAll('.destination').length;
+    const newDestination = `
+      <div class="destination">
+        <label>Airport:
+          <select name="destinations[${destinationCount}][airport]">
+            <option value="JFK">JFK</option>
+            <option value="LAX">LAX</option>
+            <option value="ORD">ORD</option>
+            <option value="SEA">SEA</option>
+          </select>
+        </label><br>
+        <label>Arrival Date:
+          <input type="date" name="destinations[${destinationCount}][arrival]">
+        </label><br>
+      </div>
+    `;
+    document.getElementById('destinations').insertAdjacentHTML('beforeend', newDestination);
+  }
+</script>
